@@ -1,0 +1,105 @@
+DAY 1. Setting up the structure of the app and trying out the first TMDB API call.
+================================================================================================================================================
+
+DAY 2. Expanding to MVC and learning a bit about express. IMP IMP IMP
+npm i express (node library: backend for routing, etc.)
+npm i --save-dev nodemon (to restart server quickly)
+
+ROUTES:
+app.get("/movies", (req, res) => {
+  console.log("Here");
+  res.send("Hi");
+});
+
+meaning that: if you go to http://localhost:3000/movies, Hi appears on the screen
+
+- res.send() mostly used for testing, not very used
+- res.status(500).send('Hi') sends down a status code (server error)
+- res.status(500).json({ message: 'Error' }) best way to send JSON IMP
+- res.download('server.js') prompts user to save the file directly
+- res.render("index") ==> requires a VIEW ENGINE (like ejs), probably not necessary/important for now
+
+ROUTER:
+- create mini version of your app with all its logic, insert it into main app
+app.get("/users", (req, res) => {
+  res.send("User list");
+});
+
+app.get("/users/new", (req, res) => {
+  res.send("User New Form");
+});
+
+ ==> create a folder 'routes' to encapsule all routes related to a certain thing
+
+in server.js:
+app.use("/users", router); (anything that starts with 'users' ==> add the routes onto them from the router)
+
+in users.js:
+/*
+import express from "express";
+const router = express.Router();
+
+// Routes
+router.get("/", (req, res) => {
+  res.send("User list");
+});
+
+router.get("/new", (req, res) => {
+  res.send("User New Form");
+});
+
+export default router;
+*/
+
+IMP
+Using a DYNAMIC URL: (/:id)
+router.post("/", (req, res) => {
+  res.send("Create user");
+});
+
+router.get("/:id", (req, res) => {
+  req.params.id;
+  res.send(`User get with id ${req.params.id}`);
+});
+
+ ==> going to http://localhost:3000/users/1423 displays User get with id 1423
+
+IMP
+Put static routes ABOVE dynamic ones:
+router.get('/:id')
+router.get('/new') ==> this will get the id of new (bad)
+
+router.route() --> can chain all diff routes (.get().put().delete())
+
+IMP
+Middleware -> code that runs in between the starting and ending of the request (ex. logger) (they all take (req, res, next))
+
+IMP EVERYTHING IS TOP TO BOTTOM IMP
+(if you put middleware below a route) you will NOT get the log:
+app.get("/", (req, res) => {
+  res.json({ message: "Hello" });
+  //   res.render('index')
+});
+
+app.use(logger);
+
+USE MIDDLEWARE ONLY ON CERTAIN ROUTES:
+app.get("/", logger, (req, res) => {
+  res.json({ message: "Hello" });
+  //   res.render('index')
+});
+================================================================================================================================================
+
+DAY 3: Making the API call work with MVC - done, minimal code help
+and Express. - WIP, need to change from parcel to node, will do later BUG
+
+NEXT: 
+IMP DONE - add a form to search for a movie instead of hardcoding the id
+        - probably in the top 
+IMP TODO - make move posters clickable, take user to the TMDB movie
+        - easy to implement, probably
+TODO - add most popular movies (?)
+        - probably in the middle, searched movie appears below this ones
+TODO - maybe add user auth to save movies / add to watchlist (?)
+
+Day 4: Made API call dynamic from text field input, displays 5 movies from 1st page for now

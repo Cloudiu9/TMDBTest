@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #615551;
+  background-image: linear-gradient(to right bottom, #fbd3, #f45482);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 98.5vh; /* fits whole vh, doesn't scroll */
+}
+
+/* HEADER */
+.header {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-field {
+  width: 20rem;
+  height: 1.2rem;
+}
+
+.search-btn {
+  width: 4rem;
+  height: 1.2rem;
+}
+
+/* works for now, need to position it in the middle of the page, below search form (for now) */
+/* MOVIE */
+.movie-collection {
+  display: flex;
+}
+
+.movie-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.movie-title {
+  font-size: 2rem;
+}
+
+.movie-desc {
+  display: flex;
+  margin: 0.5rem 0rem;
+  width: 70%;
+  justify-content: center;
+}
+
+.movie-poster {
+  height: 300px;
+}

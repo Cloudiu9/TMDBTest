@@ -35,6 +35,7 @@ export const loadMovie = async function (movieTitle) {
         title: data.title,
         description: data.overview,
         poster: data.poster_path,
+        imdb_id: data.imdb_id,
       });
 
       console.log("State updated: " + state);

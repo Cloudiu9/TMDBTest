@@ -17,7 +17,7 @@ body {
   background-image: linear-gradient(to right bottom, #fbd3, #f45482);
   background-size: cover;
   background-repeat: no-repeat;
-  height: 98.5vh; /* fits whole vh, doesn't scroll */
+  min-height: 98.5vh; /* fits whole vh  */
 }
 
 /* HEADER */
@@ -42,26 +42,44 @@ body {
 /* MOVIE */
 .movie-collection {
   display: flex;
+  flex-wrap: wrap; /* essential: makes movies wrap to the next line IMP */
+  justify-content: space-evenly;
 }
 
 .movie-card {
   display: flex;
-  justify-content: center;
   align-items: center;
+  text-align: center;
   flex-direction: column;
+  width: 282px;
+  margin: 1rem;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
+
+/*
+  width: 282px;
+  margin: 1rem;
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+*/
 
 .movie-title {
   font-size: 2rem;
 }
 
 .movie-desc {
-  display: flex;
+  display: none; /* only show on hover */
   margin: 0.5rem 0rem;
   width: 70%;
   justify-content: center;
+  background-color: white;
 }
 
 .movie-poster {
-  height: 300px;
+  width: 100%; /* take up whole movie card width */
+  height: 423px;
 }

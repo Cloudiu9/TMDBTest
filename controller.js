@@ -21,7 +21,10 @@ const controlSearchResults = async function () {
     const movie = await model.loadMovie(query);
     console.log(movie);
 
-    // 3. Render results
+    // 3. Render loading
+    movieView.renderLoading();
+
+    // 4. Render results
     movieView.render(movie);
   } catch (err) {
     console.log(err);

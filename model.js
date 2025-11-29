@@ -16,14 +16,16 @@ export const state = {
 export const loadMovie = async function (movieTitle) {
   try {
     // const res = await moviedb.movieInfo({ title: movieTitle });
-    const res = await moviedb.searchMovie({ query: movieTitle });
+    const res = await moviedb.searchMovie({
+      query: movieTitle,
+    });
     // console.log(movieTitle, res);
     const allResults = res.results.map((res) => res.id);
     // console.log(allResults);
 
     const moviesData = [];
 
-    for (let i = 0; i < allResults.length - 15; i++) {
+    for (let i = 0; i < allResults.length; i++) {
       const data = await moviedb.movieInfo({
         id: allResults[i],
       });

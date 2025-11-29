@@ -1,3 +1,5 @@
+import { mark } from "regenerator-runtime";
+
 class MovieView {
   /////////////////// selectors
   _parentEl = document.querySelector(".movie-collection");
@@ -16,6 +18,14 @@ class MovieView {
     this._parentEl.insertAdjacentHTML("afterbegin", markup);
   }
 
+  renderLoading() {
+    const markup = `
+    <div>Loading...</div>
+    `;
+
+    this._parentEl.insertAdjacentHTML("afterbegin", markup);
+  }
+
   clear() {
     this._parentEl.textContent = "";
   }
@@ -25,9 +35,9 @@ class MovieView {
       .map(
         (movie) => `
       <div class="movie-card">
+      <img class="movie-poster" src="https://image.tmdb.org/t/p/w600_and_h900_face/${movie.poster}"/>
         <h2 class="movie-title">${movie.title}</h2>
         <p class="movie-desc">${movie.description}</p>
-        <img class="movie-poster" alt="Failed to load movie poster" src="https://image.tmdb.org/t/p/w600_and_h900_face/${movie.poster}"/>
       </div>
     `
       )

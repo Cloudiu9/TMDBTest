@@ -96,10 +96,17 @@ and Express. - WIP, need to change from parcel to node, will do later BUG
 NEXT: 
 IMP DONE - add a form to search for a movie instead of hardcoding the id
         - probably in the top 
-IMP TODO - make move posters clickable, take user to the TMDB movie
+IMP DONE - make move posters clickable, take user to the TMDB movie
         - easy to implement, probably
-TODO - add most popular movies (?)
-        - probably in the middle, searched movie appears below this ones
-TODO - maybe add user auth to save movies / add to watchlist (?)
+IMP DONE - add most popular movies (?)
+        - probably in the middle, searched movies appear instead this ones
+TODO LATER - maybe add user auth to save movies / add to watchlist (?)
 
 Day 4: Made API call dynamic from text field input, displays 5 movies from 1st page for now
+
+Day 5: Restructured page, took inspiration from 50-Projects Movie App
+- Added most popular movies
+TODO - Add pagination
+        - something to do with the pages from the res object, need to go next page
+TODO - Add media queries so there aren't two lonely movies at the BOTTOM
+        - if viewport width < x, add hidden on last two? maybe other solution

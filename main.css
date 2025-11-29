@@ -6,7 +6,7 @@
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body {
@@ -14,31 +14,45 @@ body {
   font-weight: 400;
   line-height: 1.6;
   color: #615551;
-  background-image: linear-gradient(to right bottom, #fbd3, #f45482);
+  background-image: linear-gradient(to right bottom, #22254b, #22253c);
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 98.5vh; /* fits whole vh  */
+  min-height: 100vh; /* fits whole vh  */
 }
 
 /* HEADER */
 .header {
-  margin-top: 1rem;
+  margin: 1rem 3rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.header img {
+  width: 100px;
+  height: 100px;
 }
 
 .search-field {
   width: 20rem;
-  height: 1.2rem;
+  height: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+}
+
+.search-field::placeholder {
+  opacity: 0.5;
+  text-align: center;
 }
 
 .search-btn {
   width: 4rem;
-  height: 1.2rem;
+  height: 1.8rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* works for now, need to position it in the middle of the page, below search form (for now) */
 /* MOVIE */
 .movie-collection {
   display: flex;
@@ -47,28 +61,47 @@ body {
 }
 
 .movie-card {
+  background-color: #615592;
   display: flex;
   align-items: center;
-  text-align: center;
   flex-direction: column;
   width: 282px;
+  min-height: 558px;
   margin: 1rem;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
 
-/*
-  width: 282px;
-  margin: 1rem;
-  background-color: var(--secondary-color);
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  border-radius: 3px;
-*/
+.movie-info {
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* pushes rating to the right */
+  padding: 0.5rem 1rem 1rem;
+  letter-spacing: 0.5px;
+}
 
 .movie-title {
-  font-size: 2rem;
+  padding-right: 10px;
+}
+
+.movie-info span {
+  background-color: #22253c;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.green {
+  color: green;
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: red;
 }
 
 .movie-desc {

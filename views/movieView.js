@@ -35,14 +35,37 @@ class MovieView {
       .map(
         (movie) => `
       <div class="movie-card">
-      <img class="movie-poster" src="https://image.tmdb.org/t/p/w600_and_h900_face/${movie.poster}"/>
+      <a href="${
+        movie.imdb_id
+          ? `https://www.imdb.com/title/${movie.imdb_id}`
+          : `https://www.themoviedb.org/movie/${movie.tmdb_id}`
+      }" target="_blank">
+        <img class="movie-poster" src="https://image.tmdb.org/t/p/w600_and_h900_face/${
+          movie.poster
+        }"/>
+      </a>
+      <div class="movie-info">
         <h2 class="movie-title">${movie.title}</h2>
+        <span class="${getClassByRating(
+          movie.vote_avg
+        )}">${movie.vote_avg.toFixed(1)}</span>
+      </div>
         <p class="movie-desc">${movie.description}</p>
       </div>
     `
       )
       .join("");
   };
+}
+
+function getClassByRating(vote) {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 5) {
+    return "orange";
+  } else {
+    return "red";
+  }
 }
 
 export default new MovieView();

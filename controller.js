@@ -2,9 +2,10 @@
 
 import * as model from "./model.js";
 import movieView from "./views/movieView";
+import paginationView from "./views/paginationView.js";
 import searchView from "./views/searchView";
 
-// Load most popular
+// Load most popular on page start
 const loadPopularMovies = async function () {
   try {
     const moviesPop = await model.loadMovie();
@@ -33,7 +34,7 @@ const controlSearchResults = async function () {
     // 3. Load search results
     // need to make new loadsearch() for the query IMP
     // await model.loadSearchResults(query); TODO
-    const movie = await model.loadMovie(query);
+    const movie = await model.loadMovie(query, model.state.currentPage);
     console.log(movie);
 
     // 4. Render results
@@ -43,9 +44,32 @@ const controlSearchResults = async function () {
   }
 };
 
+// Pagination
+const controlPagination = async function (direction) {
+  const newPage =
+    direction === "next"
+      ? (model.state.currentPage += 1)
+      : (model.state.currentPage -= 1);
+
+  console.log(newPage, model.state.totalPages, model.state);
+
+  // Check if first page / last page ==> stop
+  if (newPage < 1 || newPage >= model.state.totalPages) return;
+
+  movieView.render(
+    await model.loadMovie(model.state.currentSearchQuery, newPage)
+  );
+  // console.log(model.state.currentSearchQuery);
+
+  console.log("💥💥💥💥" + model.state.currentPage);
+};
+
 const init = async function () {
   // Loads most popular movies
   loadPopularMovies();
+
+  paginationView.addHandlerClick(controlPagination);
+
   // Search results loading movie
   searchView.addHandlerSearch(controlSearchResults);
 };

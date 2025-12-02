@@ -10,22 +10,33 @@ const moviedb = new MovieDb(apiKey);
 /////////////////// state
 export const state = {
   movie: [],
+  currentPage: 1,
+  totalPages: 0,
+  currentSearchQuery: "", // Used for pagination
 };
 
 // loadMovie: changes the state
-export const loadMovie = async function (movieTitle) {
+export const loadMovie = async function (movieTitle, page = 1) {
   try {
     let res;
+    state.currentSearchQuery = movieTitle;
 
     // If no title provided, get popular movies, else search by title
     if (!movieTitle) {
-      res = await moviedb.moviePopular();
+      res = await moviedb.moviePopular({
+        page: state.currentPage,
+      });
     } else {
       res = await moviedb.searchMovie({
         query: movieTitle,
         sort_by: "popularity.desc",
+        page: page,
       });
     }
+
+    // Pagination
+    state.currentPage = res.page;
+    state.totalPages = res.total_pages;
 
     console.log(res);
 
@@ -40,7 +51,7 @@ export const loadMovie = async function (movieTitle) {
       const data = await moviedb.movieInfo({
         id: allResults[i],
       });
-      console.log(data);
+      // console.log(data);
 
       // Update state with the API call
       moviesData.push({

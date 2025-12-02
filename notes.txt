@@ -106,7 +106,11 @@ Day 4: Made API call dynamic from text field input, displays 5 movies from 1st p
 
 Day 5: Restructured page, took inspiration from 50-Projects Movie App
 - Added most popular movies
-TODO - Add pagination
+IMP DONE - Add pagination
         - something to do with the pages from the res object, need to go next page
 TODO - Add media queries so there aren't two lonely movies at the BOTTOM
         - if viewport width < x, add hidden on last two? maybe other solution
+
+Day 6: Added simple pagination
+TODO - Change pagination to be like on hianime (just bubbles with the page number)
+TODO MAYBE - add IMDB rating on card

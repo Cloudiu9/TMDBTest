@@ -59,16 +59,13 @@ const controlPagination = async function (direction) {
   movieView.render(
     await model.loadMovie(model.state.currentSearchQuery, newPage)
   );
-  // console.log(model.state.currentSearchQuery);
-
-  console.log("💥💥💥💥" + model.state.currentPage);
 };
 
 const init = async function () {
   // Loads most popular movies
   loadPopularMovies();
 
-  paginationView.addHandlerClick(controlPagination);
+  paginationView.addHandlerPagination(controlPagination);
 
   // Search results loading movie
   searchView.addHandlerSearch(controlSearchResults);

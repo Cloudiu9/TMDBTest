@@ -22,8 +22,8 @@ class SearchView {
 
       // Update the pagination currentPage
       model.state.currentPage = 1;
-      document.querySelector(".current-page").textContent =
-        model.state.currentPage;
+      // document.querySelector(".current-page").textContent =
+      //   model.state.currentPage;
 
       handler();
     });

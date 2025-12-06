@@ -107,9 +107,12 @@ Day 4: Made API call dynamic from text field input, displays 5 movies from 1st p
 Day 5: Restructured page, took inspiration from 50-Projects Movie App
 - Added most popular movies
 IMP DONE - Add pagination
-        - something to do with the pages from the res object, need to go next page
-TODO - Add media queries so there aren't two lonely movies at the BOTTOM
-        - if viewport width < x, add hidden on last two? maybe other solution
+         - something to do with the pages from the res object, need to go next page
+IMP DONE - Add media queries so there aren't two lonely movies at the BOTTOM
+         - if viewport width < x, add hidden on last two? maybe other solution
+         - it's fine between viewportWidth = 1883px and breaks again at viewportWidth = 1255px ==> stays broken until 941px
+         - LIMITS: breaks at 2198px (higher is fine) => broken until 1883px (fixed) ==> good until 1255px (broken) ==> fine again at 941px
+IMP DONE - fixed this by adding flex: 1 1 25ch; max-width: 260px; and a media query on movie card
 
 Day 6: Added simple pagination
 TODO - Change pagination to be like on hianime (just bubbles with the page number)
@@ -117,3 +120,5 @@ TODO MAYBE - add IMDB rating on card
 
 Day 7: Planning for better Pagination
 TODO - On search, reset current page to 1
+
+Day 8: Improved responsiveness of the movie cards on smaller screens, restructured look of pagination, still need to implement it

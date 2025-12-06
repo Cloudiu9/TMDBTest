@@ -5,7 +5,7 @@ class PaginationView {
 
   // need to dynamically render the buttons (circles like the ones from hianime)
   // Prev and Next arrows, jump to last and jump to first if exist (not on first/last page)
-  // render 5 buttons at a time with pages, followed by ... and the last page
+  // render 5 buttons at a time with pages, followed by the last page
   // current page is highlited in different color
 
   // all buttons just jump to the page on them, need the arrows at the end and beginning
@@ -15,8 +15,39 @@ class PaginationView {
   renderPag = function () {
     // render a button for each page IF there's < 5 total
     // if more than 5 pages, render 5 buttons and arrow for Jump to Last
+
+    // dynamic title for <a title='First' ||  Previous' || 'Page #' || 'Last' || 'Next' ></a>
+    // href of <a></a> needs to go to '/' OR '/?page=#'
     const markup = `
-    <button class="btn-pag btn-next">asdadsadsa</button>
+    <ul class='pagination-list'>
+      <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>«</a>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>‹</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link active' title='First' href='/'>1</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>2</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>3</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>4</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>5</a>  
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>›</a>
+        </li>
+        <li class='pag-item'>
+          <a class='pag-link' title='First' href='/'>»</a>
+        </li>
+      </li>
+    </ul>
     `;
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   };

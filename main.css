@@ -1,3 +1,9 @@
+:root {
+  --main-color: #615551;
+  --secondary-color: #615592;
+  --third-color: #ffbade;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +19,6 @@ body {
   font-family: "Nunito Sans", sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  color: #615551;
   background-image: linear-gradient(to right bottom, #22254b, #22253c);
   background-size: cover;
   background-repeat: no-repeat;
@@ -63,27 +68,39 @@ body {
 .movie-card {
   background-color: #615592;
   display: flex;
+  flex: 1 1 25ch; /* TEST */
   align-items: center;
   flex-direction: column;
   width: 282px;
-  min-height: 558px;
+  /* min-height: 558px; */
+  min-height: 530px;
+  max-width: 260px; /* TEST */
   margin: 1rem;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
 
+/* No less than 1632px, no greater than 1904px */
+@media (min-width: 1632px) and (max-width: 1904px) {
+  .movie-card {
+    flex: 1 1 20ch;
+  }
+}
+
 .movie-info {
   color: whitesmoke;
   display: flex;
+  text-align: center;
   align-items: center;
-  justify-content: space-between; /* pushes rating to the right */
-  padding: 0.5rem 1rem 1rem;
+  justify-content: center;
   letter-spacing: 0.5px;
+  height: 100%;
 }
 
 .movie-title {
   padding-right: 10px;
   font-size: 1.3rem;
+  width: 80%;
 }
 
 .movie-info span {
@@ -91,6 +108,7 @@ body {
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
   font-weight: bold;
+  width: 40px;
 }
 
 .green {
@@ -113,6 +131,10 @@ body {
   background-color: white;
 }
 
+.movie-card a {
+  height: 423px; /* this was 430px by default for some reason */
+}
+
 .movie-poster {
   width: 100%; /* take up whole movie card width */
   height: 423px;
@@ -122,13 +144,42 @@ body {
 .pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 8px;
 }
 
-.btn-pag {
+/* .btn-pag {
   border-radius: 50%;
   width: 30px;
   background-color: #615592;
   font-size: 1.5rem;
+} */
+
+.pagination-list {
+  margin-top: 20px;
+  list-style: none;
+  display: flex;
+  gap: 1px;
+  width: 500px;
+  justify-content: center;
+}
+
+.pag-item {
+  margin: 3px;
+}
+
+.pag-item .active {
+  color: #ffbade;
+}
+
+.pag-link {
+  display: block;
+  background-color: #615592;
+  color: white;
+  border-radius: 30px;
+  line-height: 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
 }

@@ -24,7 +24,7 @@ export const loadMovie = async function (movieTitle, page = 1) {
     // If no title provided, get popular movies, else search by title
     if (!movieTitle) {
       res = await moviedb.moviePopular({
-        page: state.currentPage,
+        page: page,
       });
     } else {
       res = await moviedb.searchMovie({

@@ -115,7 +115,7 @@ IMP DONE - Add media queries so there aren't two lonely movies at the BOTTOM
 IMP DONE - fixed this by adding flex: 1 1 25ch; max-width: 260px; and a media query on movie card
 
 Day 6: Added simple pagination
-TODO - Change pagination to be like on hianime (just bubbles with the page number)
+IMP DONE - Change pagination to be like on hianime (just bubbles with the page number)
 TODO MAYBE - add IMDB rating on card
 
 Day 7: Planning for better Pagination

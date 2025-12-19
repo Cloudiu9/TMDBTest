@@ -1,7 +1,10 @@
+import { mark } from "regenerator-runtime";
 import * as model from "../model.js";
 
 class PaginationView {
   _parentElement = document.querySelector(".pagination");
+
+  // IMP done, had help
 
   // need to dynamically render the buttons (circles like the ones from hianime)
   // Prev and Next arrows, jump to last and jump to first if exist (not on first/last page)
@@ -12,72 +15,100 @@ class PaginationView {
 
   // TODO split renderPag into _generateMarkup and global render() from parent View
 
-  renderPag = function () {
-    // render a button for each page IF there's < 5 total
-    // if more than 5 pages, render 5 buttons and arrow for Jump to Last
+  _generateMarkup() {
+    const currentPage = model.state.currentPage;
+    const totalPages = model.state.totalPages;
 
-    // dynamic title for <a title='First' ||  Previous' || 'Page #' || 'Last' || 'Next' ></a>
-    // href of <a></a> needs to go to '/' OR '/?page=#'
-    const markup = `
-    <ul class='pagination-list'>
-      <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>«</a>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>‹</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link active' title='First' href='/'>1</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>2</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>3</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>4</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>5</a>  
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>›</a>
-        </li>
-        <li class='pag-item'>
-          <a class='pag-link' title='First' href='/'>»</a>
-        </li>
-      </li>
-    </ul>
+    const pageButtons = this._generatePageButtons(currentPage, totalPages);
+
+    return `
+      <ul class='pagination-list'>
+        ${
+          currentPage > 2
+            ? `<li class='pag-item'><a class='pag-link' data-page='1' title='First' href='#'>«</a></li>`
+            : ""
+        }
+      ${
+        currentPage > 1
+          ? `<li class='pag-item'><a class='pag-link' data-page='${
+              currentPage - 1
+            }' title='Previous' href='#'>‹</a></li>`
+          : ""
+      }
+      ${pageButtons}
+      ${
+        currentPage < totalPages + 1
+          ? `<li class='pag-item'><a class='pag-link' data-page='${
+              currentPage + 1
+            }' title='Next' href='#'>›</a></li>`
+          : ""
+      }
+      ${
+        ""
+        // limitation if API I think?
+        // can't go past page 999, total pages are 54000, 100 works.
+        // IMP ignore 'last page' for now
+
+        // currentPage < totalPages
+        // ? `<li class='pag-item'><a class='pag-link' data-page='${999}' title='Last' href='#'>»</a></li>`
+        // : ""
+      }
+      </ul>
     `;
+  }
+
+  _generatePageButtons(currentPage, totalPages) {
+    let buttons = "";
+
+    // If less than 5 total pages, show all
+
+    if (totalPages < 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        const isActive = i === currentPage ? "active" : "";
+        buttons += `<li class='pag-item'><a class='pag-link ${isActive}' data-page='${i}' title='Page ${i}' href='#'>${i}</a></li>`;
+      }
+    } else {
+      // More than 5 pages: show 5 buttons around current page
+      let startPage = Math.max(1, currentPage - 5);
+      let endPage = Math.min(totalPages, currentPage + 5);
+
+      // Adjust if at beginning or end
+      if (currentPage <= 3) {
+        startPage = 1;
+        endPage = 5;
+      } else if (currentPage >= totalPages - 2) {
+        startPage = totalPages - 4;
+        endPage = totalPages;
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        const isActive = i === currentPage ? "active" : "";
+        buttons += `<li class='pag-item'><a class='pag-link ${isActive}' data-page='${i}' title='Page ${i}' href='#'>${i}</a></li>`;
+      }
+    }
+
+    return buttons;
+  }
+
+  render() {
+    const markup = this._generateMarkup();
+    this._parentElement.innerHTML = ""; // clear previous
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
-  };
+  }
 
-  addHandlerPagination = function (handler) {
+  addHandlerPagination(handler) {
     this._parentElement.addEventListener("click", (e) => {
-      const btn = e.target.closest(".btn-pag");
-      if (!btn) return;
+      e.preventDefault();
 
-      if (btn.classList.contains("btn-prev")) {
-        // Exiting early if current page is 1 to not go below 1
-        if (model.state.currentPage === 1) return;
+      const link = e.target.closest(".pag-link");
+      if (!link) return;
 
-        // Subtracting 1 to get the correct page change
-        document.querySelector(".current-page").textContent =
-          model.state.currentPage - 1;
-        handler("prev");
-      }
+      const targetPage = +link.dataset.page; // Get page num from data-page attr
+      if (!targetPage) return;
 
-      if (btn.classList.contains("btn-next")) {
-        // Adding 1 to get the correct page change
-        document.querySelector(".current-page").textContent =
-          model.state.currentPage + 1;
-        handler("next");
-      }
+      handler(targetPage); // pass pg num to handler
     });
-
-    // Render pagination buttons
-    this.renderPag();
-  };
+  }
 }
 
 export default new PaginationView();

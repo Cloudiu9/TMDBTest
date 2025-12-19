@@ -8,8 +8,10 @@ import searchView from "./views/searchView";
 // Load most popular on page start
 const loadPopularMovies = async function () {
   try {
+    model.state.currentSearchQuery = ""; // No search query for popular movies
     const moviesPop = await model.loadMovie();
     movieView.render(moviesPop);
+    paginationView.render(); // Render pagination buttons
   } catch (err) {
     console.log(err);
   }
@@ -31,34 +33,29 @@ const controlSearchResults = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
+    // Store the query for pagination to use later
+    model.state.currentSearchQuery = query;
+
     // 3. Load search results
     // need to make new loadsearch() for the query IMP
     // await model.loadSearchResults(query); TODO
-    const movie = await model.loadMovie(query, model.state.currentPage);
+    const movie = await model.loadMovie(query, 1); // Starts at page 1
     console.log(movie);
 
     // 4. Render results
     movieView.render(movie);
+    paginationView.render();
   } catch (err) {
     console.log(err);
   }
 };
 
 // Pagination
-const controlPagination = async function (direction) {
-  const newPage =
-    direction === "next"
-      ? (model.state.currentPage += 1)
-      : (model.state.currentPage -= 1);
-
-  console.log(newPage, model.state.totalPages, model.state);
-
-  // Check if first page / last page ==> stop
-  if (newPage < 1 || newPage >= model.state.totalPages) return;
-
-  movieView.render(
-    await model.loadMovie(model.state.currentSearchQuery, newPage)
-  );
+const controlPagination = async function (pageNumber) {
+  // Use the stored search query, not a new one
+  await model.loadMovie(model.state.currentSearchQuery, pageNumber);
+  movieView.render(model.state.movie);
+  paginationView.render(); // Re-render pagination with new active page
 };
 
 const init = async function () {

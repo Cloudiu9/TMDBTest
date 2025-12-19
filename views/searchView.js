@@ -21,7 +21,7 @@ class SearchView {
       e.preventDefault();
 
       // Update the pagination currentPage
-      model.state.currentPage = 1;
+      // model.state.currentPage = 1;
       // document.querySelector(".current-page").textContent =
       //   model.state.currentPage;
 
